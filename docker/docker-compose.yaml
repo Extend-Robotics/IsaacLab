@@ -98,6 +98,20 @@ services:
     stdin_open: true
     tty: true
 
+  isaac-lab-extend-robotics:
+    profiles: [ "extend_robotics" ]
+    env_file: .env.extend_robotics
+    image: 031532483464.dkr.ecr.eu-west-2.amazonaws.com/extend_developers:isaac_lab_ros1_4.5.0
+    container_name: isaac-lab-extend_robotics
+    environment: *default-isaac-lab-environment
+    volumes: *default-isaac-lab-volumes
+    network_mode: host
+    deploy: *default-isaac-lab-deploy
+    # This is the entrypoint for the container
+    entrypoint: bash
+    stdin_open: true
+    tty: true
+
   # This service adds a ROS2 Humble
   # installation on top of the base image
   isaac-lab-ros2:

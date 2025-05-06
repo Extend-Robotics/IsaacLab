@@ -123,5 +123,9 @@ def main(args: argparse.Namespace):
 
 
 if __name__ == "__main__":
-    args_cli = parse_cli_args()
+    DEBUGGER_ENABLED = False
+    if not DEBUGGER_ENABLED:
+        args_cli = parse_cli_args()
+    else:
+        args_cli = argparse.Namespace(profile="base", files=None, env_files=None, command="start")
     main(args_cli)

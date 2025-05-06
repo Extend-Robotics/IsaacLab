@@ -100,22 +100,23 @@ class ContainerInterface:
             " background...\n"
         )
 
-        # build the image for the base profile
-        subprocess.run(
-            [
-                "docker",
-                "compose",
-                "--file",
-                "docker-compose.yaml",
-                "--env-file",
-                ".env.base",
-                "build",
-                "isaac-lab-base",
-            ],
-            check=False,
-            cwd=self.context_dir,
-            env=self.environ,
-        )
+        if "extend" not in self.image_name:
+            # build the image for the base profile
+            subprocess.run(
+                [
+                    "docker",
+                    "compose",
+                    "--file",
+                    "docker-compose.yaml",
+                    "--env-file",
+                    ".env.base",
+                    "build",
+                    "isaac-lab-base",
+                ],
+                check=False,
+                cwd=self.context_dir,
+                env=self.environ,
+            )
 
         # build the image for the profile
         subprocess.run(
