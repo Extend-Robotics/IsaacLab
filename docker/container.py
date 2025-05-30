@@ -127,5 +127,18 @@ if __name__ == "__main__":
     if not DEBUGGER_ENABLED:
         args_cli = parse_cli_args()
     else:
-        args_cli = argparse.Namespace(profile="base", files=None, env_files=None, command="start")
+        extend = False
+        if extend:
+            profile="extend_robotics"
+            command="start"
+            env_files=[".env.extend_robotics"]
+            args_cli = argparse.Namespace(profile=profile, files=None, env_files=env_files, command="start")
+        else:
+            profile="base"
+            args_cli = argparse.Namespace(profile=profile, files=None, env_files=None, command="start")
+    # print(args_cli.profile)
+    # print(args_cli.files)
+    # print(args_cli.env_files)
+    # print(args_cli.command)
+    a=1
     main(args_cli)

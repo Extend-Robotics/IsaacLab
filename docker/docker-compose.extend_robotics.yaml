@@ -78,17 +78,16 @@ services:
   isaac-lab-base:
     profiles: [ "base" ]
     env_file: .env.base
-    #build:
-    #  context: ../
-    #  dockerfile: docker/Dockerfile.base
-    #  args:
-    #    - ISAACSIM_BASE_IMAGE_ARG=${ISAACSIM_BASE_IMAGE}
-    #    - ISAACSIM_VERSION_ARG=${ISAACSIM_VERSION}
-    #    - ISAACSIM_ROOT_PATH_ARG=${DOCKER_ISAACSIM_ROOT_PATH}
-    #    - ISAACLAB_PATH_ARG=${DOCKER_ISAACLAB_PATH}
-    #    - DOCKER_USER_HOME_ARG=${DOCKER_USER_HOME}
-    # image: isaac-lab-base
-    image: 031532483464.dkr.ecr.eu-west-2.amazonaws.com/extend_developers:isaac_lab_extend_4.5.0
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile.base
+      args:
+        - ISAACSIM_BASE_IMAGE_ARG=${ISAACSIM_BASE_IMAGE}
+        - ISAACSIM_VERSION_ARG=${ISAACSIM_VERSION}
+        - ISAACSIM_ROOT_PATH_ARG=${DOCKER_ISAACSIM_ROOT_PATH}
+        - ISAACLAB_PATH_ARG=${DOCKER_ISAACLAB_PATH}
+        - DOCKER_USER_HOME_ARG=${DOCKER_USER_HOME}
+    image: 031532483464.dkr.ecr.eu-west-2.amazonaws.com/extend_developers:isaac_lab_ros1_4.5.0
     container_name: isaac-lab-base
     environment: *default-isaac-lab-environment
     volumes: *default-isaac-lab-volumes
@@ -101,12 +100,8 @@ services:
 
   isaac-lab-extend-robotics:
     profiles: [ "extend_robotics" ]
-    env_file:
-      - .env.base
-      - .env.extend_robotics
-    image: isaaclab_base_add_ros1:latest
-    # image: 031532483464.dkr.ecr.eu-west-2.amazonaws.com/extend_developers:isaac_lab_base_4.5.0
-    # image: 031532483464.dkr.ecr.eu-west-2.amazonaws.com/extend_developers:isaac_lab_extend_4.5.0
+    env_file: .env.extend_robotics
+    image: 031532483464.dkr.ecr.eu-west-2.amazonaws.com/extend_developers:isaac_lab_ros1_4.5.0
     container_name: isaac-lab-extend_robotics
     environment: *default-isaac-lab-environment
     volumes: *default-isaac-lab-volumes

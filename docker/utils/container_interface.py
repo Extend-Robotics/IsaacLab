@@ -119,6 +119,8 @@ class ContainerInterface:
             )
 
         # build the image for the profile
+        for x in self.add_env_files + self.add_profiles + self.add_yamls:
+            print(x, end=' ')
         subprocess.run(
             ["docker", "compose"]
             + self.add_yamls
