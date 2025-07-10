@@ -73,9 +73,9 @@ extract_python_exe() {
             # note: we need to check system python for cases such as docker
             # inside docker, if user installed into system python, we need to use that
             # otherwise, use the python from the kit
-            if [ $(python -m pip list | grep -c 'isaacsim-rl') -gt 0 ]; then
+            #if [ $(python -m pip list | grep -c 'isaacsim-rl') -gt 0 ]; then
                 local python_exe=$(which python)
-            fi
+            #fi
         fi
     fi
     # check if there is a python path available
