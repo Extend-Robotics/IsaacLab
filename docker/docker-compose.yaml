@@ -47,7 +47,7 @@ x-default-isaac-lab-volumes: &default-isaac-lab-volumes
     source: ../tools
     target: ${DOCKER_ISAACLAB_PATH}/tools
   - type: bind
-    source: ../../extend_isaac_lab
+    source: ../../extend_isaac_lab/extend_isaac_lab
     target: /workspace/extend_isaac_lab
     # The effect of these volumes is twofold:
     # 1. Prevent root-owned files from flooding the _build and logs dir
@@ -81,6 +81,7 @@ services:
   isaac-lab-base:
     profiles: [ "base" ]
     env_file: .env.base
+    user: ${MY_UID}:${MY_GID}
     #build:
     #  context: ../
     #  dockerfile: docker/Dockerfile.base

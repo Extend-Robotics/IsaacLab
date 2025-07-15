@@ -78,6 +78,7 @@ extract_python_exe() {
             #fi
         fi
     fi
+    python_exe=$(which python3)
     # check if there is a python path available
     if [ ! -f "${python_exe}" ]; then
         echo -e "[ERROR] Unable to find any Python executable at path: '${python_exe}'" >&2

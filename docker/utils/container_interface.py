@@ -5,7 +5,7 @@
 
 from __future__ import annotations
 
-import os
+import os, grp
 import shutil
 import subprocess
 from pathlib import Path
@@ -101,9 +101,13 @@ class ContainerInterface:
         )
 
         if "extend" not in self.image_name:
+            uid = os.getuid()
+            gid = os.getgid()
+            self.environ["MY_UID"] = str(uid)
+            self.environ["MY_GID"] = str(gid)
             # build the image for the base profile
-            subprocess.run(
-                [
+            
+            cmd1 = [
                     "docker",
                     "compose",
                     "--file",
@@ -112,7 +116,10 @@ class ContainerInterface:
                     ".env.base",
                     "build",
                     "isaac-lab-base",
-                ],
+                ]
+            print(f'#### running cmd1: {cmd1}')
+            subprocess.run(
+                cmd1,
                 check=False,
                 cwd=self.context_dir,
                 env=self.environ,
@@ -121,12 +128,14 @@ class ContainerInterface:
         # build the image for the profile
         for x in self.add_env_files + self.add_profiles + self.add_yamls:
             print(x, end=' ')
+        cmd2 = ["docker", "compose"] \
+            + self.add_yamls \
+            + self.add_profiles \
+            + self.add_env_files \
+            + ["up", "--detach", "--build", "--remove-orphans"]
+        print(f'#### running cmd2: {cmd2}')
         subprocess.run(
-            ["docker", "compose"]
-            + self.add_yamls
-            + self.add_profiles
-            + self.add_env_files
-            + ["up", "--detach", "--build", "--remove-orphans"],
+            cmd2,
             check=False,
             cwd=self.context_dir,
             env=self.environ,
