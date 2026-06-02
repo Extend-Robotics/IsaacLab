@@ -49,6 +49,12 @@ x-default-isaac-lab-volumes: &default-isaac-lab-volumes
     source: ../docs
     target: ${DOCKER_ISAACLAB_PATH}/docs
   - type: bind
+    source: ../../workspace/extend_isaac_lab
+    target: /workspace/extend_isaac_lab
+  - type: bind
+    source: ../../configs
+    target: /workspace/configs
+  - type: bind
     source: ../tools
     target: ${DOCKER_ISAACLAB_PATH}/tools
     # The effect of these volumes is twofold:
@@ -87,7 +93,7 @@ services:
   isaac-lab-base:
     profiles: [ "base" ]
     env_file: .env.base
-    image: extend/cortex:isaac_lab_5.0_v0.1
+    image: 031532483464.dkr.ecr.eu-west-2.amazonaws.com/isaac5_dev_image:latest
     container_name: isaac-lab-base${DOCKER_NAME_SUFFIX-}
     environment: *default-isaac-lab-environment
     volumes: *default-isaac-lab-volumes
