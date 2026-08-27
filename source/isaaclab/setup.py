@@ -16,6 +16,22 @@ EXTENSION_PATH = os.path.dirname(os.path.realpath(__file__))
 EXTENSION_TOML_DATA = toml.load(os.path.join(EXTENSION_PATH, "config", "extension.toml"))
 
 # Minimum dependencies required prior to installation
+
+# NOTE (27/08/26)
+# bumped several pinned/unpinned dependencies to match 
+# upstream isaac-sim/IsaacLab, after our frozen fork's stale pins caused silent build
+# failures under recent setuptools (pkg_resources removed in setuptools>=82.0.0):
+#   - gymnasium   1.2.0      -> 1.2.1
+#   - transformers (unpinned) -> ==4.57.6
+#   - pillow      11.2.1     -> 11.3.0
+#   - starlette   0.45.3     -> 0.49.1
+#   - flatdict    ==4.0.1    -> >=4.1.0  (root cause: 4.0.1's setup.py breaks under
+#     setuptools>=82.0.0's removal of pkg_resources; not caught by the setuptools pin
+#     below since flatdict's own build-system requires is unbounded)
+# Follow: https://github.com/isaac-sim/IsaacLab/commit/ddb044eb5b2300792de41e82d53b032f3632b489#diff-5268c40bec268c6c849e62a72ec0bfaa6436f578c97c2ed10b1454475911607c
+# https://github.com/isaac-sim/IsaacLab/issues/4577
+
+
 INSTALL_REQUIRES = [
     # generic
     "numpy<2",
