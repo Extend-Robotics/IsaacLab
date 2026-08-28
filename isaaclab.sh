@@ -525,6 +525,10 @@ while [[ $# -gt 0 ]]; do
             pip_command=$(extract_pip_command)
             pip_uninstall_command=$(extract_pip_uninstall_command)
 
+            # force install setuptools <82.0.0 to avoid pkg_resources issues
+            echo "[INFO] Installing setuptools<82.0.0..."
+            ${pip_command} "setuptools<82.0.0"
+
             # check if pytorch is installed and its version
             # install pytorch with cuda 12.8 for blackwell support
             ensure_cuda_torch
