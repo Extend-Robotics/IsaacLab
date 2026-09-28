@@ -69,6 +69,12 @@ x-default-isaac-lab-volumes: &default-isaac-lab-volumes
   - type: bind
     source: .isaac-lab-docker-history
     target: ${DOCKER_USER_HOME}/.bash_history
+  - type: bind
+    source: ${HOME}/configs
+    target: /workspace/configs
+  - type: bind
+    source: ${HOME}/workspace/extend_isaac_lab
+    target: /workspace/extend_isaac_lab
 
 x-default-isaac-lab-environment: &default-isaac-lab-environment
   - ISAACSIM_PATH=${DOCKER_ISAACLAB_PATH}/_isaac_sim
@@ -96,8 +102,8 @@ services:
     #     - ISAACSIM_ROOT_PATH_ARG=${DOCKER_ISAACSIM_ROOT_PATH}
     #     - ISAACLAB_PATH_ARG=${DOCKER_ISAACLAB_PATH}
     #     - DOCKER_USER_HOME_ARG=${DOCKER_USER_HOME}
-    image: isaac5_dev_image
-    container_name: isaac5_dev_container
+    image: 031532483464.dkr.ecr.eu-west-2.amazonaws.com/isaac5_dev_image:latest
+    container_name: isaac-lab-base
     environment: *default-isaac-lab-environment
     volumes: *default-isaac-lab-volumes
     network_mode: host

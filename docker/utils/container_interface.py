@@ -68,7 +68,7 @@ class ContainerInterface:
             # insert a hyphen before the suffix if a suffix is given
             self.suffix = f"-{suffix}"
 
-        self.container_name = "isaac5_dev_container"
+        self.container_name = "isaac-lab-base"
         self.image_name = f"isaac-lab-{self.profile}{self.suffix}:latest"
 
         # keep the environment variables from the current environment,
@@ -131,7 +131,7 @@ class ContainerInterface:
                     "--env-file",
                     ".env.base",
                     "build",
-                    "isaac5_dev_container",
+                    "isaac-lab-base",
                 ],
                 check=False,
                 cwd=self.context_dir,
