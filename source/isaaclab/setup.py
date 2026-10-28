@@ -30,6 +30,12 @@ EXTENSION_TOML_DATA = toml.load(os.path.join(EXTENSION_PATH, "config", "extensio
 #     below since flatdict's own build-system requires is unbounded)
 # Follow: https://github.com/isaac-sim/IsaacLab/commit/ddb044eb5b2300792de41e82d53b032f3632b489#diff-5268c40bec268c6c849e62a72ec0bfaa6436f578c97c2ed10b1454475911607c
 # https://github.com/isaac-sim/IsaacLab/issues/4577
+#
+# NOTE (28/10/26)
+# pinned packaging<24 (same pin as isaaclab_rl) to keep Isaac Sim's prebundled packaging 23.0.
+# pytest 9.2.0 requires packaging>=24, so an unpinned pytest made pip replace the prebundled
+# packaging, after which pip itself fails to import:
+#   ModuleNotFoundError: No module named 'pip._vendor.packaging._structures'
 
 
 INSTALL_REQUIRES = [
@@ -56,6 +62,7 @@ INSTALL_REQUIRES = [
     "starlette==0.49.1",
     # testing
     "pytest",
+    "packaging<24",  # see NOTE (28/10/26)
     "pytest-mock",
     "junitparser",
     "flatdict>=4.1.0",
